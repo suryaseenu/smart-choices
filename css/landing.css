@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .center-box {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    border: 1px solid #333; /* Darker border color for contrast */
+    padding: 120px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .login-box, .signup-box {
+    background-color: #fff; /* White background */
+    color: #000; /* Black text */
+    padding: 10px;
+    margin-top: 10px; /* Adjust the margin as needed */
+    border-radius: 5px;
