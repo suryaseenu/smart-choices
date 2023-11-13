@@ -1,0 +1,41 @@
+.custom-text {
+  /* Your styles go here */
+  color: white; /* For example, setting the text color to white */
+  font-size: 18px; /* Adjust the font size as needed */
+  /* Add any other styles you want */
+}
+
+.custom-result {
+  /* Your styles go here */
+  color: white; /* For example, setting the text color to white */
+  font-size: 25px; /* Adjust the font size as needed */
+  /* Add any other styles you want */
+}
+
+
+.centerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  margin: 0;
+}
+
+.center-box {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  border: 1px solid #333; /* Darker border color for contrast */
+  padding: 80px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100vh;
+}
+
+.numberCircle {
+  width: 120px;
+  line-height: 120px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 32px;
+  border: 2px solid #666;
+}
