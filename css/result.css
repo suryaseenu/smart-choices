@@ -12,8 +12,16 @@
   /* Add any other styles you want */
 }
 
+.custom-header {
+  /* Your styles go here */
+  color: black; /* For example, setting the text color to white */
+  text-align: left;
+  /* Add any other styles you want */
+}
+
 
 .centerContainer {
+  flex-direction: column;
   display: flex;
   align-items: center;
   justify-content: center;
