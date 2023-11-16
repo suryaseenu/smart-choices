@@ -1,0 +1,14 @@
+scripts on NodeJS  
+    Login
+    Get and Post requests for dynamic question page
+    store temporary data for the entire quiz and send a single request at the end
+    script to add questions
+
+Database:
+    Mongo / Pocketbase
+    user table
+    questions table
+    answers table
+    attempt table
+
+Host on Netlify
