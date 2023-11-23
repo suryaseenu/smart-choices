@@ -19,10 +19,10 @@ async function connect() {
   try {
     client = await MongoClient.connect(uri);
     console.log("Connected to MongoDB");
-    return client; // Return the client object
+    return client;
   } catch (error) {
     console.error(error);
-    throw error; // Throw the error to handle it appropriately
+    throw error;
   }
 }
 
@@ -93,11 +93,10 @@ app.post('/register', async (req, res) => {
 // Route to get a question from the database
 app.get('/question', async (req, res) => {
   try {
-    const questionText = req.query.questionText;
+    const questionNumber = req.query.questionNumber;
 
-    // Fetch the specific question from the MongoDB collection
     const collection = client.db('smartdb').collection('questions');
-    const question = await collection.findOne({ questionText });
+    const question = await collection.findOne({ questionNumber: parseInt(questionNumber) });
 
     if (question) {
       res.json(question);

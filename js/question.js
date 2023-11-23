@@ -1,23 +1,43 @@
 document.addEventListener('DOMContentLoaded', function () {
     const questionTextContainer = document.getElementById('question-text');
-  
-    // Function to fetch a specific question from the server
+    const saveButton = document.getElementById('saveBtn');
+    const nextButton = document.getElementById('nextBtn');
+    const radioOptions = document.querySelectorAll('input[name="decision"]');
+
+    let questionNumber = 1;
+
     async function fetchQuestion() {
-      try {
-        // Specify the questionText you want to fetch
-        const questionText = 'Is conflict amongst the team over the decision likely?';
-  
-        // Fetch the question text from the server with the specified questionText
-        const response = await fetch(`http://localhost:3000/question?questionText=${encodeURIComponent(questionText)}`);
-        const data = await response.json();
-  
-        // Update the question text in the HTML
-        questionTextContainer.textContent = data.questionText;
-      } catch (error) {
-        console.error('Error fetching question:', error);
-      }
+        try {
+            const response = await fetch(`http://localhost:3000/question?questionNumber=${questionNumber}`);
+            const data = await response.json();
+            questionTextContainer.textContent = data.questionText;
+            saveButton.setAttribute('disabled', true);
+            radioOptions.forEach(radioOption => {
+                radioOption.checked = false;
+            });
+        } catch (error) {
+            console.error('Error fetching question:', error);
+        }
     }
-  
-    // Call the fetchQuestion function when the page loads
+
     fetchQuestion();
-  });
+
+    radioOptions.forEach(radioOption => {
+        radioOption.addEventListener('change', function () {
+            saveButton.removeAttribute('disabled');
+        });
+    });
+
+    saveButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        questionNumber++;
+        saveButton.setAttribute('disabled', true);
+        nextButton.removeAttribute('disabled');
+    });
+
+    nextButton.addEventListener('click', function () {
+        questionNumber++;
+        fetchQuestion();
+        nextButton.setAttribute('disabled', true);
+    });
+});

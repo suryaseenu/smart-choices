@@ -12,3 +12,10 @@ Database:
     attempt table
 
 Host on Netlify
+
+
+
+Things to do:
+When current question is last question, then show the submit quiz button. Otherwise it is invisible
+Save the attempt response in the collection
+Script for vroom yetton path calculation
