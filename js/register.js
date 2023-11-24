@@ -33,8 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
             dateOfBirth,
         };
 
-        console.log(userData);
-
         // Send the user data to the server
         fetch('http://localhost:3000/register', {
             method: 'POST',

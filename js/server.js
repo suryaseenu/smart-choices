@@ -65,6 +65,7 @@ process.on('SIGTERM', async () => {
   process.exit();
 });
 
+// Route to register a user
 app.post('/register', async (req, res) => {
   const userData = req.body;
 
@@ -85,6 +86,32 @@ app.post('/register', async (req, res) => {
     });
   } catch (error) {
     console.error('Error hashing password:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route to authenticate and login user
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const collection = client.db('smartdb').collection('users');
+
+    const user = await collection.findOne({ emailId: email });
+
+    if (user) {
+      const passwordMatch = await bcrypt.compare(password, user.password);
+
+      if (passwordMatch) {
+        res.json({ success: true, user: { email: user.email} });
+      } else {
+        res.json({ success: false, message: 'Invalid email or password' });
+      }
+    } else {
+      res.json({ success: false, message: 'Invalid email or password' });
+    }
+  } catch (error) {
+    console.error('Error during login:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
