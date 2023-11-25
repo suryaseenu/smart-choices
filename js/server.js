@@ -5,12 +5,21 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const { MongoClient } = require('mongodb');
+const session = require('express-session');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// Use sessions
+app.use(session({
+  secret: '95f0f21221ed1db9e1d4d5d3b601840f2d3f5a491ac4839cc5437a6800f1fde4',
+  resave: false,
+  saveUninitialized: true,
+}));
+
 
 const uri = 'mongodb+srv://smartchoicesuser:smartchoicespassword@smartchoicescluster.jf5ctae.mongodb.net/?retryWrites=true&w=majority';
 let client;
@@ -103,7 +112,9 @@ app.post('/login', async (req, res) => {
       const passwordMatch = await bcrypt.compare(password, user.password);
 
       if (passwordMatch) {
-        res.json({ success: true, user: { email: user.email} });
+        // Store user data in session
+        req.session.user = { email };
+        res.json({ success: true, user: { email: user.email } });
       } else {
         res.json({ success: false, message: 'Invalid email or password' });
       }
@@ -132,6 +143,23 @@ app.get('/question', async (req, res) => {
     }
   } catch (error) {
     console.error('Error fetching question:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/getSessionUser', async (req, res) => {
+  try {
+    const currUser = req.session.user;
+    const collection = client.db('smartdb').collection('users');
+    const user = await collection.findOne({ emailId: currUser.email });
+
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching user:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Check if authentication was successful
                 if (data.success) {
                     // Store user information in localStorage
-                    localStorage.setItem('currentUser', JSON.stringify(data.user));
+                    localStorage.setItem('currentUser', (data.user));
 
                     // Redirect to the main page or dashboard
                     window.location.href = '../html/startSurvey.html';
