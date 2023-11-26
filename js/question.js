@@ -1,8 +1,4 @@
 document.addEventListener('DOMContentLoaded', async function () {
-    const questionTextContainer = document.getElementById('question-text');
-    const saveButton = document.getElementById('saveBtn');
-    const nextButton = document.getElementById('nextBtn');
-    const radioOptions = document.querySelectorAll('input[name="decision"]');
 
     async function getSessionUser() {
         try {
@@ -15,9 +11,29 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
-    const user = await getSessionUser();
+    async function getSessionLastQuestionNumber() {
+        try {
+            const response = await fetch('http://localhost:3000/getSessionLastQuestionNumber');
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching session lastQuestionNumber:', error);
+            return null;
+        }
+    }
 
+    await getSessionLastQuestionNumber();
+
+    const questionTextContainer = document.getElementById('question-text');
+    const saveButton = document.getElementById('saveBtn');
+    const nextButton = document.getElementById('nextBtn');
+    const radioOptions = document.querySelectorAll('input[name="decision"]');
+
+    const user = await getSessionUser();
     console.log(user);
+
+    const lastQuestionNumber = await getSessionLastQuestionNumber();
+    console.log(lastQuestionNumber);
 
     let questionNumber = 1;
 
@@ -30,6 +46,16 @@ document.addEventListener('DOMContentLoaded', async function () {
             radioOptions.forEach(radioOption => {
                 radioOption.checked = false;
             });
+
+            // Check if it's the last question
+            if (questionNumber === lastQuestionNumber.lastQuestionNum) {
+                // Make the "Finish Survey" button visible
+                document.getElementById('finishSurveyBtn').style.display = 'inline-block';
+            } else {
+                // Hide the "Finish Survey" button
+                document.getElementById('finishSurveyBtn').style.display = 'none';
+            }
+
         } catch (error) {
             console.error('Error fetching question:', error);
         }
@@ -79,7 +105,12 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         saveButton.setAttribute('disabled', true);
-        nextButton.removeAttribute('disabled');
+        if (questionNumber === lastQuestionNumber.lastQuestionNum) {
+            
+        } else {
+            nextButton.removeAttribute('disabled');
+        }
+        
     });
 
     nextButton.addEventListener('click', function () {

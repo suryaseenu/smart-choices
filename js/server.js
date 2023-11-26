@@ -46,6 +46,18 @@ async function closeConnection() {
   }
 }
 
+async function getLastQuestionNumber() {
+  try {
+    const collection = client.db('smartdb').collection('questions');
+    const lastQuestion = await collection.find().sort({ questionNumber: -1 }).limit(1).toArray();
+
+    return lastQuestion[0].questionNumber;
+  } catch (error) {
+    console.error('Error fetching last question number:', error);
+    throw error;
+  }
+}
+
 // Serve static files
 const staticPath = path.resolve('/Users/surya/Documents/GitHub/se-project/');
 app.use(express.static(staticPath));
@@ -132,6 +144,7 @@ app.post('/login', async (req, res) => {
 app.get('/question', async (req, res) => {
   try {
     const questionNumber = req.query.questionNumber;
+    req.session.lastQuestionNumber = await getLastQuestionNumber();
 
     const collection = client.db('smartdb').collection('questions');
     const question = await collection.findOne({ questionNumber: parseInt(questionNumber) });
@@ -177,3 +190,15 @@ app.post('/saveResponse', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+app.get('/getSessionLastQuestionNumber', async (req, res) => {
+  try {
+    const lastQuestionNum = await getLastQuestionNumber();
+    req.session.lastQuestionNumber = lastQuestionNum;
+    res.json({ lastQuestionNum });
+  } catch (error) {
+    console.error('Error fetching session lastQuestionNumber:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
