@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     async function getSessionUser() {
         try {
-            // Send a GET request to a server endpoint that retrieves the user data
             const response = await fetch('http://localhost:3000/getSessionUser');
             const userData = await response.json();
             return userData;
@@ -44,9 +43,41 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     });
 
-    saveButton.addEventListener('click', function (event) {
+    saveButton.addEventListener('click', async function (event) {
         event.preventDefault();
-        questionNumber++;
+
+        const selectedOption = document.querySelector('input[name="decision"]:checked');
+        if (!selectedOption) {
+            alert('Please select a response.');
+            return;
+        }
+
+        const responseValue = selectedOption.value;
+
+        const responseData = {
+            userId: user._id,
+            questionNumber,
+            response: responseValue,
+        };
+
+        try {
+            const response = await fetch('http://localhost:3000/saveResponse', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(responseData),
+            });
+
+            if (response.ok) {
+                console.log('Response saved successfully.');
+            } else {
+                console.error('Failed to save response.');
+            }
+        } catch (error) {
+            console.error('Error saving response:', error);
+        }
+
         saveButton.setAttribute('disabled', true);
         nextButton.removeAttribute('disabled');
     });

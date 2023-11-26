@@ -163,3 +163,17 @@ app.get('/getSessionUser', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+app.post('/saveResponse', async (req, res) => {
+  try {
+    const responseData = req.body;
+
+    const collection = client.db('smartdb').collection('responses');
+    await collection.insertOne(responseData);
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error saving response:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
