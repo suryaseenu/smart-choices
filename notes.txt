@@ -12,3 +12,16 @@ Database:
     attempt table
 
 Host on Netlify
+
+
+
+Things to do:
+display "Question 1/7" etc for each question...
+Save the attempt response in the collection
+send email at the end of survey to thank and mention response
+on click of logout button on every page - clear all session data, delete users responses from Database
+on click of reattempt - delete user responses from Database
+
+UI changes:
+add role in register screen to identify if manager is logging in
+logout and help buttons missong from start survey screen
