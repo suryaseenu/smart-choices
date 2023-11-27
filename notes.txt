@@ -19,4 +19,8 @@ Things to do:
 display "Question 1/7" etc for each question...
 Save the attempt response in the collection
 Script for vroom yetton path calculation
+create model collection - VY outputs
 send email at the end of survey to thank and mention response
+add role in register screen for manager login
+on click of logout button on every page - clear all session data, delete users responses from Database
+on click of reattempt - delete user responses from Database

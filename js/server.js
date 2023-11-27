@@ -202,3 +202,17 @@ app.get('/getSessionLastQuestionNumber', async (req, res) => {
   }
 });
 
+// Route to get responses for a specific user
+app.get('/getUserResponses', async (req, res) => {
+  try {
+    const userId = req.query.userId;
+
+    const collection = client.db('smartdb').collection('responses');
+    const userResponses = await collection.find({ userId }).toArray();
+
+    res.json(userResponses);
+  } catch (error) {
+    console.error('Error fetching user responses:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
