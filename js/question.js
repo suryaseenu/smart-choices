@@ -1,24 +1,28 @@
+import { getSessionUser, getSessionLastQuestionNumber } from './utils.js';
+
 document.addEventListener('DOMContentLoaded', async function () {
 
-    async function getSessionUser() {
+    async function fetchQuestion() {
         try {
-            const response = await fetch('http://localhost:3000/getSessionUser');
-            const userData = await response.json();
-            return userData;
-        } catch (error) {
-            console.error('Error fetching session user data:', error);
-            return null;
-        }
-    }
-
-    async function getSessionLastQuestionNumber() {
-        try {
-            const response = await fetch('http://localhost:3000/getSessionLastQuestionNumber');
+            const response = await fetch(`http://localhost:3000/question?questionNumber=${questionNumber}`);
             const data = await response.json();
-            return data;
+            questionTextContainer.textContent = data.questionText;
+            saveButton.setAttribute('disabled', true);
+            radioOptions.forEach(radioOption => {
+                radioOption.checked = false;
+            });
+    
+            // Check if it's the last question
+            if (questionNumber === lastQuestionNumber.lastQuestionNum) {
+                // Make the "Finish Survey" button visible
+                document.getElementById('finishSurveyBtn').style.display = 'inline-block';
+            } else {
+                // Hide the "Finish Survey" button
+                document.getElementById('finishSurveyBtn').style.display = 'none';
+            }
+    
         } catch (error) {
-            console.error('Error fetching session lastQuestionNumber:', error);
-            return null;
+            console.error('Error fetching question:', error);
         }
     }
 
@@ -36,30 +40,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     console.log(lastQuestionNumber);
 
     let questionNumber = 1;
-
-    async function fetchQuestion() {
-        try {
-            const response = await fetch(`http://localhost:3000/question?questionNumber=${questionNumber}`);
-            const data = await response.json();
-            questionTextContainer.textContent = data.questionText;
-            saveButton.setAttribute('disabled', true);
-            radioOptions.forEach(radioOption => {
-                radioOption.checked = false;
-            });
-
-            // Check if it's the last question
-            if (questionNumber === lastQuestionNumber.lastQuestionNum) {
-                // Make the "Finish Survey" button visible
-                document.getElementById('finishSurveyBtn').style.display = 'inline-block';
-            } else {
-                // Hide the "Finish Survey" button
-                document.getElementById('finishSurveyBtn').style.display = 'none';
-            }
-
-        } catch (error) {
-            console.error('Error fetching question:', error);
-        }
-    }
 
     fetchQuestion();
 
@@ -106,11 +86,11 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         saveButton.setAttribute('disabled', true);
         if (questionNumber === lastQuestionNumber.lastQuestionNum) {
-            
+
         } else {
             nextButton.removeAttribute('disabled');
         }
-        
+
     });
 
     nextButton.addEventListener('click', function () {
