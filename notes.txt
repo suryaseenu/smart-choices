@@ -1,27 +1,25 @@
-scripts on NodeJS  
-    Login
-    Get and Post requests for dynamic question page
-    store temporary data for the entire quiz and send a single request at the end
-    script to add questions
-
-Database:
-    Mongo / Pocketbase
-    user table
-    questions table
-    answers table
-    attempt table
-
-Host on Netlify
-
-
-
 Things to do:
 display "Question 1/7" etc for each question...
 Save the attempt response in the collection
-send email at the end of survey to thank and mention response
+send email at the end of survey to thank and mention response - change alternate attempt button to send me a copy of response button
 on click of logout button on every page - clear all session data, delete users responses from Database
 on click of reattempt - delete user responses from Database
+scripts for help button popups
+remove previous results button
+
 
 UI changes:
-add role in register screen to identify if manager is logging in
-logout and help buttons missong from start survey screen
+
+make colours of nav bar consistent
+add mastadon logo instead of home icon in nav bar
+add nav bar on login/signup landing page (index.html)
+add role dropdown in sign up page - options: Survey Taker / manager
+add background image for all screens to remove white spaces
+manager screen  - keep only report, help and logout options in nav bar
+                - report option is not dropdown, make it a button and link it to admin.html page
+                - rename ceate new survey to Add More Questions
+                - Remove survey title, add comments and schedule survey options on the screen
+admin screen - remove text "Last Week Data" and replace with "Report"
+                - Keep only help and logout option in the nav bar
+                - remove the picture and add query part
+                - add an empty table with 3 columns and 5 empty rows, column headings are: User, Date of Survey, Result
