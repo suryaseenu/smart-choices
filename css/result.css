@@ -27,14 +27,21 @@
 
 .btn-secondary {
   background-color: #000000;
-  outline:none;
-  border:none;
+  outline: none;
+  border: none;
+  width: auto;
+  display: inline-block;
+  white-space: nowrap; /* Prevent text from wrapping */
 }
 
 .btn {
   border: none;
   background-color: black;
+  width: auto;
+  display: inline-block;
+  white-space: nowrap; /* Prevent text from wrapping */
 }
+
 
 .centerContainer {
   flex-direction: column;
