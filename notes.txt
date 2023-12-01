@@ -1,17 +1,11 @@
 Things to do:
 display "Question 1/7" etc for each question...
 send email at the end of survey to thank and mention response - change alternate attempt button to send me a copy of response button
-on click of logout button on every page - clear all session data, delete users responses from Database
-remove previous results button
-add role while registering
 
 
 UI changes:
 
-make colours of nav bar consistent
-add mastadon logo instead of home icon in nav bar
-add nav bar on login/signup landing page (index.html)
-add role dropdown in sign up page - options: Survey Taker / manager
+add mastodon logo instead of home icon in nav bar
 add background image for all screens to remove white spaces
 manager screen  - keep only report, help and logout options in nav bar
                 - report option is not dropdown, make it a button and link it to admin.html page

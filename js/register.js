@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('cpassword').value;
         const dateOfBirth = document.getElementById('dateofbirth').value;
+        const roleDropdown = document.getElementById('role');
+        const selectedRole = roleDropdown.options[roleDropdown.selectedIndex].value;
+
 
         // Check if passwords match
         if (password !== confirmPassword) {
@@ -31,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
             emailId,
             password,
             dateOfBirth,
+            role: selectedRole
         };
 
         // Send the user data to the server
