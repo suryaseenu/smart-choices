@@ -3,6 +3,7 @@ display "Question 1/7" etc for each question...
 send email at the end of survey to thank and mention response - change alternate attempt button to send me a copy of response button
 on click of logout button on every page - clear all session data, delete users responses from Database
 remove previous results button
+add role while registering
 
 
 UI changes:

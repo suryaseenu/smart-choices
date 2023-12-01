@@ -82,6 +82,11 @@ body {
   border:none;
 }
 
+.btn {
+  border: none;
+  background-color: black;
+}
+
 .custom-btn-no-arrow::after
 {
   content: none;

@@ -1,23 +1,88 @@
+.navbar {
+
+  background-color: #000000;
+  color: white;
+  /* Set the text color to white */
+  padding: 15px;
+  line-height: 1.5;
+}
+
+.custom-text {
+  color: white !important;
+  /* Set the color of the text to white */
+  font-size: 24px;
+  /* Adjust the font size as needed */
+  display: flex;
+  /* Use flexbox to align items */
+  align-items: center;
+  /* Align items vertically */
+}
+
+.navbar-brand img {
+  width: 30px;
+  /* Adjust the width of the image */
+  margin-right: 10px;
+  /* Adjust the margin for spacing between image and text */
+}
+
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-  }
+  padding-top: 80px;
+  /* Adjust the value based on your preference */
+}
 
-  .center-box {
-    background-color: #000; /* Black background */
-    color: #fff; /* White text */
-    border: 1px solid #333; /* Darker border color for contrast */
-    padding: 120px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+/* Custom styles for Department of Organizational Leadership */
+.navbar .department-text {
+  color: white !important;
+  /* Set the color of the text to white */
+  font-size: 18px;
+  /* Adjust the font size as needed */
+  margin-right: 15px;
+  /* Adjust margin for better spacing */
+}
 
-  .login-box, .signup-box {
-    background-color: #fff; /* White background */
-    color: #000; /* Black text */
-    padding: 10px;
-    margin-top: 10px; /* Adjust the margin as needed */
-    border-radius: 5px;
+
+.btn {
+  border: none;
+
+}
+
+
+/* Custom styles for Help and Logout buttons */
+.navbar .btn-dark {
+  background-color: transparent !important;
+  /* Set the background color to transparent */
+  color: white !important;
+  /* Set the text color to white */
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.center-box {
+  background-color: #000;
+  /* Black background */
+  color: #fff;
+  /* White text */
+  border: 1px solid #333;
+  /* Darker border color for contrast */
+  padding: 120px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-box,
+.signup-box {
+  background-color: #fff;
+  /* White background */
+  color: #000;
+  /* Black text */
+  padding: 10px;
+  margin-top: 10px;
+  /* Adjust the margin as needed */
+  border-radius: 5px;
+}
