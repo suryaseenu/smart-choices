@@ -21,4 +21,5 @@ admin screen - remove text "Last Week Data" and replace with "Report"
                 - remove the picture and add query part
                 - add an empty table with 3 columns and 5 empty rows, column headings are: User, Date of Survey, Result
 
-test the result page for all types of result decisions
+test the result page for all types of result decisions 
+
