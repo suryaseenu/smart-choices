@@ -4,7 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const session = require('express-session');
 
 const app = express();
@@ -213,6 +213,85 @@ app.get('/getUserResponses', async (req, res) => {
     res.json(userResponses);
   } catch (error) {
     console.error('Error fetching user responses:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route to handle user logout
+app.get('/logout', async (req, res) => {
+  try {
+    const currUser = req.session.user;
+    const userCollection = client.db('smartdb').collection('users');
+    const user = await userCollection.findOne({ emailId: currUser.email });
+
+    const collection = client.db('smartdb').collection('responses');
+    
+    const userIdString = user._id.toString();
+    await collection.deleteMany({ userId: userIdString});
+
+    req.session.destroy();
+
+    res.redirect('/');
+  } catch (error) {
+    console.error('Error during logout:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route to get decision details based on decision style
+app.get('/getDecisionDetails', async (req, res) => {
+  try {
+    const decisionStyle = req.query.decisionStyle;
+
+    const collection = client.db('smartdb').collection('decisions');
+    const decisionDetails = await collection.findOne({ name: decisionStyle });
+
+    if (decisionDetails) {
+      res.json(decisionDetails);
+    } else {
+      res.status(404).json({ error: 'Decision details not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching decision details:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route for the redirect URL
+app.get('/html/startSurvey', (req, res) => {
+  res.sendFile(path.join(staticPath, 'html/startSurvey.html'));
+});
+
+// Route for the Re-attempt button
+app.get('/reattempt', async (req, res) => {
+  try {
+    const currUser = req.session.user;
+    const userCollection = client.db('smartdb').collection('users');
+    const user = await userCollection.findOne({ emailId: currUser.email });
+
+    const collection = client.db('smartdb').collection('responses');
+    
+    const userIdString = user._id.toString();
+    await collection.deleteMany({ userId: userIdString});
+
+    res.redirect('/html/startSurvey');
+  } catch (error) {
+    console.error('Error during reattempt:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route to save attempt result
+app.post('/saveAttemptResult', async (req, res) => {
+  try {
+    const { userId, result, date } = req.body;
+
+    const collection = client.db('smartdb').collection('attempts');
+    await collection.insertOne({ userId, result, date });
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error saving attempt result:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

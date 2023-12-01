@@ -1,5 +1,17 @@
 import { getSessionUser, getSessionLastQuestionNumber } from './utils.js';
 
+function showPopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'block';
+}
+
+function closePopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'none';
+}
+
+document.getElementById('helpBtn').addEventListener('click', showPopup);
+
 document.addEventListener('DOMContentLoaded', async function () {
 
     async function fetchQuestion() {
@@ -9,9 +21,12 @@ document.addEventListener('DOMContentLoaded', async function () {
             questionTextContainer.textContent = data.questionText;
             saveButton.setAttribute('disabled', true);
             radioOptions.forEach(radioOption => {
+                radioOption.disabled = false;
+            });
+            radioOptions.forEach(radioOption => {
                 radioOption.checked = false;
             });
-    
+
             // Check if it's the last question
             if (questionNumber === lastQuestionNumber.lastQuestionNum) {
                 // Make the "Finish Survey" button visible
@@ -20,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 // Hide the "Finish Survey" button
                 document.getElementById('finishSurveyBtn').style.display = 'none';
             }
-    
+
         } catch (error) {
             console.error('Error fetching question:', error);
         }
@@ -85,6 +100,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         saveButton.setAttribute('disabled', true);
+        radioOptions.forEach(radioOption => {
+            radioOption.disabled = true;
+        });
         if (questionNumber === lastQuestionNumber.lastQuestionNum) {
 
         } else {
@@ -98,4 +116,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         fetchQuestion();
         nextButton.setAttribute('disabled', true);
     });
+
+    const closeButton = document.querySelector('.close-popup');
+    if (closeButton) {
+        closeButton.addEventListener('click', closePopup);
+    }
 });
