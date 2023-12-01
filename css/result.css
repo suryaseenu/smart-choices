@@ -19,6 +19,22 @@
   /* Add any other styles you want */
 }
 
+.navbar {
+
+  background-color: #000000;
+
+}
+
+.btn-secondary {
+  background-color: #000000;
+  outline:none;
+  border:none;
+}
+
+.btn {
+  border: none;
+  background-color: black;
+}
 
 .centerContainer {
   flex-direction: column;
