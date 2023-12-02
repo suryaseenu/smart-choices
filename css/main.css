@@ -18,7 +18,7 @@ html {
 }
 
 body {
-  background-color: #FFFFFF;
+  background-color: #CFB991;
 }
 
 .main-container {
@@ -28,7 +28,17 @@ body {
   /*border: 2px solid #000;
   border-radius: 10px;*/
   padding: 20px;
-  /*background-color: #BEADFA;*/
+  background-color: #CFB991;
+}
+
+.reg-body {
+  background-color: #CFB991;
+}
+
+.app-logo {
+  width: 10%; /* Set the width as needed */
+  /* aspect-ratio: 4 / 3; Set the aspect ratio (width / height) as needed */
+  object-fit: cover; /* Maintain aspect ratio and cover the entire container */
 }
 
 .main-container .form-group .form-control {
@@ -108,7 +118,7 @@ body {
   border-radius: 10px;
   width:100%;
   margin: auto;
-  /* background-color: #BEADFA; */
+  background-color: #ffffff;
   font-size: 22px;
 
 }
