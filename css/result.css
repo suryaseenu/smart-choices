@@ -52,6 +52,12 @@
   margin: 0;
 }
 
+.app-logo {
+  width: 10%; /* Set the width as needed */
+  /* aspect-ratio: 4 / 3; Set the aspect ratio (width / height) as needed */
+  object-fit: cover; /* Maintain aspect ratio and cover the entire container */
+}
+
 body {
   background-color: #CFB991;
 }
