@@ -49,7 +49,7 @@ body {
 .main-container .form-group .form-control {
   color: #D0E7D2;
   margin: 0 auto;
-  width: 50%;
+  width: 100%;
   height: 40px;
 }
 .main-container .form-survey .form-control {
