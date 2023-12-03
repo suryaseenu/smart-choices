@@ -15,10 +15,15 @@ html {
   color: #222;
   font-size: 1em;
   line-height: 1.4;
+  height : 100%;
+
 }
 
 body {
   background-color: #CFB991;
+  background-image: url('../img/background.jpg'); /* Path to your background image */
+  background-size: cover; /* Cover the entire background */
+  background-position: center; /* Center the background image */
 }
 
 .main-container {
@@ -60,7 +65,8 @@ body {
   /*border: 2px solid #000;
   border-radius: 10px;*/
   padding: 20px;
-  /*background-color: #BEADFA;*/
+  background-color: rgba(255, 255, 255, 0.42);
+  border-radius: 10px;
 }
 .login-container .form-list .form-constraint {
   color: #D0E7D2;
@@ -409,3 +415,9 @@ textarea {
   font-size: 20px;
   cursor: pointer;
 }
+
+.container {
+  background-color: rgba(255, 255, 255, 0.42);
+  border-radius: 10px;
+}
+

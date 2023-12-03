@@ -67,7 +67,7 @@ body {
 }
 
 .center-box {
-  background-color: #000; /* Black background */
+  background-color: rgba(0, 0, 0, 0.86); /* Black background */
   color: #fff; /* White text */
   border: 1px solid #333; /* Darker border color for contrast */
   padding: 80px;
