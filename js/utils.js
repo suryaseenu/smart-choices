@@ -1,6 +1,6 @@
 async function getSessionUser() {
     try {
-        const response = await fetch('http://localhost:3000/getSessionUser');
+        const response = await fetch('http://34.125.235.0:3000/getSessionUser');
         const userData = await response.json();
         return userData;
     } catch (error) {
@@ -11,7 +11,7 @@ async function getSessionUser() {
 
 async function getSessionLastQuestionNumber() {
     try {
-        const response = await fetch('http://localhost:3000/getSessionLastQuestionNumber');
+        const response = await fetch('http://34.125.235.0:3000/getSessionLastQuestionNumber');
         const data = await response.json();
         return data;
     } catch (error) {

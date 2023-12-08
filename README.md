@@ -6,4 +6,4 @@ This is a new web-based tool “Smart Choices”, for a client from the Departme
 1. Clone the GitHub repository and navigate to the project folder
 2. Make sure you have the latest version of node installed on your system by running the command node --version
 3. Execute the script to start the local node server by running node js/server.js
-4. Open http://localhost:3000 on your browser to start using the website
+4. Open http://34.125.235.0:3000 on your browser to start using the website

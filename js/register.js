@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Send the user data to the server
-        fetch('http://localhost:3000/register', {
+        fetch('http://34.125.235.0:3000/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

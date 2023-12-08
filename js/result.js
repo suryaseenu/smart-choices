@@ -16,7 +16,7 @@ async function calculateDecisionStyle() {
   try {
     const user = await getSessionUser();
 
-    const response = await fetch(`http://localhost:3000/getUserResponses?userId=${user._id}`);
+    const response = await fetch(`http://34.125.235.0:3000/getUserResponses?userId=${user._id}`);
     const userResponses = await response.json();
 
     if (userResponses.find(response => response.questionNumber === 1).response === 'no') {
@@ -125,7 +125,7 @@ async function calculateDecisionStyle() {
 
 async function fetchDecisionDetails(decisionStyle) {
   try {
-    const response = await fetch(`http://localhost:3000/getDecisionDetails?decisionStyle=${decisionStyle}`);
+    const response = await fetch(`http://34.125.235.0:3000/getDecisionDetails?decisionStyle=${decisionStyle}`);
     const decisionDetails = await response.json();
 
     return decisionDetails;
@@ -153,7 +153,7 @@ async function displayDecisionDetails(decisionDetails) {
 
 async function saveAttemptResult(userId, decisionStyle) {
   try {
-    const response = await fetch('http://localhost:3000/saveAttemptResult', {
+    const response = await fetch('http://34.125.235.0:3000/saveAttemptResult', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

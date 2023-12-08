@@ -69,7 +69,7 @@ app.get('/', (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://34.125.235.0:${PORT}`);
 });
 
 // Connect to MongoDB when the application starts

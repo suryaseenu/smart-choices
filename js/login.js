@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Send the login data to the server for authentication
-        fetch('http://localhost:3000/login', {
+        fetch('http://34.125.235.0:3000/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
