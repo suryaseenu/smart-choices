@@ -225,7 +225,7 @@ app.get('/logout', async (req, res) => {
     const user = await userCollection.findOne({ emailId: currUser.email });
 
     const collection = client.db('smartdb').collection('responses');
-    
+
     const userIdString = user._id.toString();
     await collection.deleteMany({ userId: userIdString});
 
@@ -270,7 +270,7 @@ app.get('/reattempt', async (req, res) => {
     const user = await userCollection.findOne({ emailId: currUser.email });
 
     const collection = client.db('smartdb').collection('responses');
-    
+
     const userIdString = user._id.toString();
     await collection.deleteMany({ userId: userIdString});
 
@@ -292,6 +292,23 @@ app.post('/saveAttemptResult', async (req, res) => {
     res.json({ success: true });
   } catch (error) {
     console.error('Error saving attempt result:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+app.post('/addquestions', async (req, res) => {
+  const questions = req.body;
+
+  try {
+    const { userId, questions } = req.body;
+
+    const collection = client.db('smartdb').collection('questions');
+    await array.forEach(element => {
+       collection.insertOne({ question });
+    });
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error adding new question:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

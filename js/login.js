@@ -31,8 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     localStorage.setItem('currentUser', (data.user));
 
                     // Redirect to the main page or dashboard
+                    console.log("hola")
                     window.location.href = '../html/startSurvey.html';
-                } else {
+                    console.log("hola2")
+                    return false
+
+                  } else {
                     // Display an error message to the user
                     alert('Invalid email or password. Please try again.');
                 }

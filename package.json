@@ -7,8 +7,8 @@
   "author": "jayasurya",
   "scripts": {
     "build": "parcel build html/index.html",
-    "dev": "parcel html/index.html --open & node js/server.js",
-    "start": "npm run build && npm run dev",
+    "dev": "parcel html/index.html",
+    "start": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
