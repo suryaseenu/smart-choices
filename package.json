@@ -7,7 +7,7 @@
   "author": "jayasurya",
   "scripts": {
     "build": "parcel build html/index.html ",
-    "dev": "parcel html/index.html --https",
+    "dev": "parcel html/index.html --port 43401",
     "start": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
