@@ -59,8 +59,10 @@ async function getLastQuestionNumber() {
 }
 
 // Serve static files
-const staticPath = path.resolve('/Users/surya/Documents/GitHub/se-project/');
+const staticPath = path.resolve(__dirname, '..'); // __dirname is the directory of the current script
 app.use(express.static(staticPath));
+//const staticPath = path.resolve('/Users/shafinazyasin/Desktop/GITHUB/SmartSimple');
+//app.use(express.static(staticPath));
 
 // Route for the root URL
 app.get('/', (req, res) => {
