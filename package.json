@@ -6,8 +6,8 @@
   "license": "ISC",
   "author": "jayasurya",
   "scripts": {
-    "build": "parcel build index.html ",
-    "dev": "parcel index.html --port 43401",
+    "build": "node js/server.js",
+    "dev": "node js/server.js",
     "start": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
