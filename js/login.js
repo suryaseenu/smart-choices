@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Send the login data to the server for authentication
-        fetch('http://34.125.235.0:3000/login', {
+        fetch('http://localhost:3000/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,8 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Redirect to the main page or dashboard
                     console.log("hola")
                     window.location.href = '../html/startSurvey.html';
-                    console.log("hola2")
-                    return false
 
                   } else {
                     // Display an error message to the user

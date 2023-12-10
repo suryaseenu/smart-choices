@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     async function fetchQuestion() {
         try {
-            const response = await fetch(`http://34.125.235.0:3000/question?questionNumber=${questionNumber}`);
+            const response = await fetch(`http://localhost:3000/question?questionNumber=${questionNumber}`);
             const data = await response.json();
             questionTextContainer.textContent = data.questionText;
             saveButton.setAttribute('disabled', true);
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         };
 
         try {
-            const response = await fetch('http://34.125.235.0:3000/saveResponse', {
+            const response = await fetch('http://localhost:3000/saveResponse', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
