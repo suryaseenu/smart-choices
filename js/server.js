@@ -41,6 +41,18 @@ async function connect() {
   }
 }
 
+const startServer = async () => {
+  try {
+    await connect(); // Wait for MongoDB connection
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error starting the server:", error);
+    process.exit(1); // Exit the process if there's an error
+  }
+};
+
 async function closeConnection() {
   try {
     if (client) {
@@ -75,13 +87,15 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(staticPath, 'index.html'));
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// // Start the server
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
 
-// Connect to MongoDB when the application starts
-connect();
+// // Connect to MongoDB when the application starts
+// connect();
+
+startServer();
 
 // Close the MongoDB connection when the application exits
 process.on('SIGINT', async () => {
@@ -95,15 +109,44 @@ process.on('SIGTERM', async () => {
 });
 
 // Route to register a user
+// app.post('/register', async (req, res) => {
+//   const userData = req.body;
+
+//   try {
+//     const hashedPassword = await bcrypt.hash(userData.password, 10);
+//     userData.password = hashedPassword;
+
+//     const collection = client.db('smartdb').collection('users');
+
+//     collection.insertOne(userData, (err, result) => {
+//       if (err) {
+//         console.error(err);
+//         res.status(500).json({ error: 'Internal server error' });
+//       } else {
+//         console.log(`Inserted ${result.insertedCount} document into the collection`);
+//         res.json({ success: true });
+//       }
+//     });
+//   } catch (error) {
+//     console.error('Error hashing password:', error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
+
+
 app.post('/register', async (req, res) => {
   const userData = req.body;
 
   try {
+    // Check if the MongoDB client is connected
+    if (!client.isConnected()) {
+      await connect(); // Reconnect if not connected
+    }
+
     const hashedPassword = await bcrypt.hash(userData.password, 10);
     userData.password = hashedPassword;
 
     const collection = client.db('smartdb').collection('users');
-
     collection.insertOne(userData, (err, result) => {
       if (err) {
         console.error(err);
@@ -114,10 +157,12 @@ app.post('/register', async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Error hashing password:', error);
+    console.error('Error during user registration:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
 
 // Route to authenticate and login user
 app.post('/login', async (req, res) => {
