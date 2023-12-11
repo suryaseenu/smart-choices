@@ -4,7 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const session = require('express-session');
 
 const app = express();
@@ -16,7 +16,6 @@ app.use(cors({
   origin: ['https://smartchoices.netlify.app', 'http://localhost:3000'],
   optionsSuccessStatus: 200
 }));
-
 app.use(bodyParser.json());
 
 // Use sessions
@@ -27,8 +26,32 @@ app.use(session({
 }));
 
 
-const uri = 'mongodb+srv://smartchoicesuser:smartchoicespassword@smartchoicescluster.jf5ctae.mongodb.net/?retryWrites=true&w=majority';
-let client;
+// const uri = 'mongodb+srv://smartchoicesuser:smartchoicespassword@smartchoicescluster.jf5ctae.mongodb.net/?retryWrites=true&w=majority';
+const uri = "mongodb+srv://smartchoicesuser:smartchoicespassword@smartchoicescluster.jf5ctae.mongodb.net/?retryWrites=true&w=majority";
+
+// let client;
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
 
 async function connect() {
   try {
@@ -40,18 +63,6 @@ async function connect() {
     throw error;
   }
 }
-
-const startServer = async () => {
-  try {
-    await connect(); // Wait for MongoDB connection
-    app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.error("Error starting the server:", error);
-    process.exit(1); // Exit the process if there's an error
-  }
-};
 
 async function closeConnection() {
   try {
@@ -87,15 +98,13 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(staticPath, 'index.html'));
 });
 
-// // Start the server
-// app.listen(PORT, () => {
-//   console.log(`Server is running on http://localhost:${PORT}`);
-// });
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
 
-// // Connect to MongoDB when the application starts
+// Connect to MongoDB when the application starts
 // connect();
-
-startServer();
 
 // Close the MongoDB connection when the application exits
 process.on('SIGINT', async () => {
@@ -109,44 +118,15 @@ process.on('SIGTERM', async () => {
 });
 
 // Route to register a user
-// app.post('/register', async (req, res) => {
-//   const userData = req.body;
-
-//   try {
-//     const hashedPassword = await bcrypt.hash(userData.password, 10);
-//     userData.password = hashedPassword;
-
-//     const collection = client.db('smartdb').collection('users');
-
-//     collection.insertOne(userData, (err, result) => {
-//       if (err) {
-//         console.error(err);
-//         res.status(500).json({ error: 'Internal server error' });
-//       } else {
-//         console.log(`Inserted ${result.insertedCount} document into the collection`);
-//         res.json({ success: true });
-//       }
-//     });
-//   } catch (error) {
-//     console.error('Error hashing password:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
-
-
 app.post('/register', async (req, res) => {
   const userData = req.body;
 
   try {
-    // Check if the MongoDB client is connected
-    if (!client.isConnected()) {
-      await connect(); // Reconnect if not connected
-    }
-
     const hashedPassword = await bcrypt.hash(userData.password, 10);
     userData.password = hashedPassword;
 
     const collection = client.db('smartdb').collection('users');
+
     collection.insertOne(userData, (err, result) => {
       if (err) {
         console.error(err);
@@ -157,12 +137,10 @@ app.post('/register', async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Error during user registration:', error);
+    console.error('Error hashing password:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-
 
 // Route to authenticate and login user
 app.post('/login', async (req, res) => {
