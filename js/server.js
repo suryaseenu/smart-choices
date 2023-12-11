@@ -13,9 +13,10 @@ const PORT = process.env.PORT || 3000;
 //app.use(cors());
 
 app.use(cors({
-  origin: ['https://smartchoices.netlify.app/', 'http://localhost:3000'],
+  origin: ['https://smartchoices.netlify.app', 'http://localhost:3000'],
   optionsSuccessStatus: 200
 }));
+
 app.use(bodyParser.json());
 
 // Use sessions
